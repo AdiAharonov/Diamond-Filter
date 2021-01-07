@@ -2,58 +2,81 @@ import React, { useState, useEffect } from 'react';
 import { DiamondsList } from './Components/DiamondsList/DiamondsList';
 import { diamondService } from './Services/diamondsService';
 import { Filter } from './Components/DiamondFilter/DiamondFilter';
+import { Header } from './Components/Header/Header';
+import './App.scss';
+
+const filterPlatte = () => {
+  return {
+    Shape: '',
+    Color: '',
+    Clarity: '',
+    Cut: '',
+    Polish: '',
+    Symmetry: '',
+    Flour: '',
+  };
+};
 
 export const App = () => {
   const [diamonds, setDiamonds] = useState([]);
-  const [filterBy, setFilterBy] = useState({Shape: '', Carat: {minCarat: 0, maxCarat: Infinity}, Color: '', Clarity: '', Cut: '', Polish: '', Symmetry: '', Flour: ''});
-  const [currDiamondsTotalPrice, setCurrDiamondsTotalPrice] = useState(47610.36)
+  const [filterBy, setFilterBy] = useState(filterPlatte());
+  const [caratRange, setCaratRange] = useState([0.2, 0.35]);
+  const [currDiamondsTotalPrice, setCurrDiamondsTotalPrice] = useState(
+    47610.36
+  );
 
   useEffect(() => {
-    loadDiamonds()
-  }, [])
+    loadDiamonds();
+  }, []);
 
   useEffect(() => {
-    const totalPrice = diamondService.getTotalPrice(diamonds)
-    setCurrDiamondsTotalPrice(totalPrice)
-  }, [diamonds])
+    const totalPrice = diamondService.getTotalPrice(diamonds);
+    setCurrDiamondsTotalPrice(totalPrice);
+  }, [diamonds]);
 
   useEffect(() => {
-    loadDiamonds()
-  }, [filterBy])
+    loadDiamonds();
+  }, [filterBy, caratRange]);
 
   const loadDiamonds = () => {
-    const currDiamonds = diamondService.query(filterBy);
+    const currDiamonds = diamondService.query(filterBy, caratRange);
     setDiamonds([...currDiamonds]);
-  }
-  
-  const onSetFilter = (filter, field, name) => {
-    if (filter === 'ALL') {
-      setFilterBy({...filterBy, [field]: '' })
-    } else if (name) {
-      setFilterBy({...filterBy, [field]: {
-        ...filterBy.Carat,
-        [name]: filter 
-      }})
-      
-    }
-    else setFilterBy({...filterBy, [field]: filter });
+  };
+
+  const onSetFilter = (filter) => {
+    let currFilter = filterPlatte();
+    setFilterBy(filterPlatte());
+
+    filter.map((filterItem) => {
+      if (currFilter[filterItem.property]) {
+        if (filterBy[filterItem.property] !== '')
+          currFilter[filterItem.property] += ' ' + filterItem.value;
+        return setFilterBy({
+          ...currFilter,
+          [filterItem.property]: currFilter[filterItem.property],
+        });
+      } else {
+        currFilter[filterItem.property] = '';
+        currFilter[filterItem.property] += filterItem.value;
+        return setFilterBy({
+          ...currFilter,
+          [filterItem.property]: currFilter[filterItem.property],
+        });
+      }
+    });
   };
 
   return (
     <div className="App">
-      <div>
-      <h4>Total Number Of Diamonds: 99</h4>
-      <h4>Total Diamonds Price: <span style={{color: "green"}}>$47610.36</span></h4>
-      </div>
-      <div>
-      <h4>Current Number Of Diamonds: {diamonds.length}</h4>
-      <h4>Current Diamonds Price: <span style={{color: "green"}}>${currDiamondsTotalPrice}</span></h4>
-      </div>
-      <Filter onSetFilter={onSetFilter} />
+      <section>
+        <Header
+          diamonds={diamonds}
+          currDiamondsTotalPrice={currDiamondsTotalPrice}
+        />
+        <Filter onSetFilter={onSetFilter} setCaratRange={setCaratRange} />
+      </section>
       {!diamonds && <h1>Loading...</h1>}
       {diamonds && <DiamondsList diamonds={diamonds} />}
     </div>
   );
-}
-
-
+};

@@ -3,7 +3,7 @@ import { DiamondItem } from '../DiamondItem/DiamondItem';
 import { Styles } from '../../Consts';
 import './_list.scss';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,35 +12,38 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const useStyles = makeStyles({
-  table: {
-    maxWidth: window.innerWidth - 100,
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#3f51b5',
+    color: theme.palette.common.white,
+    fontSize: 12,
+    fontWeight: 'bold',
   },
-});
+}))(TableCell);
 
 export const DiamondsList = ({ diamonds }) => {
-  const classes = useStyles();
   return (
     <div className={Styles.LIST}>
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Stock NO</TableCell>
-              <TableCell align="center">Shape</TableCell>
-              <TableCell align="center">Carat</TableCell>
-              <TableCell align="center">Clarity</TableCell>
-              <TableCell align="center">Color</TableCell>
-              <TableCell align="center">Cut</TableCell>
-              <TableCell align="center">Polish</TableCell>
-              <TableCell align="center">Symmetry</TableCell>
-              <TableCell align="center">Fluorescent</TableCell>
-              <TableCell align="center">CULET</TableCell>
-              <TableCell align="center">Location</TableCell>
-              <TableCell align="center">CertificateLink</TableCell>
-              <TableCell align="center">VideoLink</TableCell>
-              <TableCell align="center">PPC</TableCell>
-              <TableCell align="center">Total Price</TableCell>
+              <StyledTableCell>Stock No.</StyledTableCell>
+              <StyledTableCell align="center">Shape</StyledTableCell>
+              <StyledTableCell align="center">Carat</StyledTableCell>
+              <StyledTableCell align="center">Clarity</StyledTableCell>
+              <StyledTableCell align="center">Color</StyledTableCell>
+              <StyledTableCell align="center">Cut</StyledTableCell>
+              <StyledTableCell align="center">Polish</StyledTableCell>
+              <StyledTableCell align="center">Symmetry</StyledTableCell>
+              <StyledTableCell align="center">Fluorescent</StyledTableCell>
+              <StyledTableCell align="center">CULET</StyledTableCell>
+              <StyledTableCell align="center">Location</StyledTableCell>
+              <StyledTableCell align="center">ImageLink</StyledTableCell>
+              <StyledTableCell align="center">CertificateLink</StyledTableCell>
+              <StyledTableCell align="center">VideoLink</StyledTableCell>
+              <StyledTableCell align="center">PPC</StyledTableCell>
+              <StyledTableCell align="center">Total Price</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

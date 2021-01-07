@@ -1,41 +1,31 @@
-import * as diamonds from '../diamons.json';
+import * as diamonds from '../diamonds.json';
 
-const query = (filterBy) => {
-  const {
-    Shape,
-    Carat,
-    Color,
-    Clarity,
-    Cut,
-    Polish,
-    Symmetry,
-    Flour,
-  } = filterBy;
+const query = (filterBy, caratRange) => {
+  console.log(caratRange);
+  const { Shape, Color, Clarity, Cut, Polish, Symmetry, Flour } = filterBy;
   if (
     !Shape &&
-    Carat.maxCarat === 0 &&
-    Carat.minCarat === 0 &&
     !Color &&
     !Clarity &&
     !Cut &&
     !Polish &&
     !Symmetry &&
-    !Flour
+    !Flour &&
+    !caratRange
   )
     return diamonds.default;
   else {
-    const { maxCarat, minCarat } = Carat;
     return diamonds.default.filter(
       (diamond) =>
-        diamond.Shape.includes(Shape) &&
-        diamond.Symmetry.includes(Symmetry) &&
-        diamond.Color.includes(Color) &&
-        diamond.Clarity.includes(Clarity) &&
-        diamond.Cut.includes(Cut) &&
-        diamond.Polish.includes(Polish) &&
-        diamond.Fluorescent.includes(Flour) &&
-        +diamond.Carat <= maxCarat &&
-        +diamond.Carat >= minCarat
+        (Shape === '' || Shape.includes(diamond.Shape)) &&
+        (Symmetry === '' || Symmetry.includes(diamond.Symmetry)) &&
+        (Color === '' || Color.includes(diamond.Color)) &&
+        (Clarity === '' || Clarity.includes(diamond.Clarity)) &&
+        (Cut === '' || Cut.includes(diamond.Cut)) &&
+        (Polish === '' || Polish.includes(diamond.Polish)) &&
+        (Flour === '' || Flour.includes(diamond.Fluorescent)) &&
+        +diamond.Carat <= caratRange[1] &&
+        +diamond.Carat >= caratRange[0]
     );
   }
 };
