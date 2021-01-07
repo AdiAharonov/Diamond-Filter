@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/Diamond-Filter/static/css/main.0310e6fb.chunk.css",
+    "main.js": "/Diamond-Filter/static/js/main.9697c795.chunk.js",
+    "main.js.map": "/Diamond-Filter/static/js/main.9697c795.chunk.js.map",
+    "runtime-main.js": "/Diamond-Filter/static/js/runtime-main.3292b167.js",
+    "runtime-main.js.map": "/Diamond-Filter/static/js/runtime-main.3292b167.js.map",
+    "static/js/2.57150d53.chunk.js": "/Diamond-Filter/static/js/2.57150d53.chunk.js",
+    "static/js/2.57150d53.chunk.js.map": "/Diamond-Filter/static/js/2.57150d53.chunk.js.map",
+    "index.html": "/Diamond-Filter/index.html",
+    "static/css/main.0310e6fb.chunk.css.map": "/Diamond-Filter/static/css/main.0310e6fb.chunk.css.map",
+    "static/js/2.57150d53.chunk.js.LICENSE.txt": "/Diamond-Filter/static/js/2.57150d53.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/Diamond-Filter/static/media/OpenSans-Regular.1b0809d5.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3292b167.js",
+    "static/js/2.57150d53.chunk.js",
+    "static/css/main.0310e6fb.chunk.css",
+    "static/js/main.9697c795.chunk.js"
+  ]
+}
